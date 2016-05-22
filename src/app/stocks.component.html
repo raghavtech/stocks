@@ -1,3 +1,66 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Collaborative stock price viewer</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 well">
+      <h4>Currently watched stocks</h4>
+      <p *ngIf="stocks.length === 0">There are currently no stocks to watch</p>
+
+      <div class="table-responsive">
+        <table *ngIf="stocks.length > 0" class="table table-condensed">
+          <tr>
+            <th></th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Exchange</th>
+          </tr>
+          <tr *ngFor="let stock of stocks">
+            <td><a class="btn btn-danger btn-xs" (click)="removeStock(stock)"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.exchange}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <hr>
+      <h4>Add stock</h4>
+      <div class="form-group">
+        <input [ngFormControl]="searchStock" type="text" class="form-control" id="searchStock" placeholder="Search a stock">
+      </div>
+      <div class="table-responsive">
+        <table *ngIf="searchStockResults.length > 0" class="table table-condensed">
+          <tr>
+            <th></th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Exchange</th>
+          </tr>
+          <tr *ngFor="let stock of searchStockResults">
+            <td><a class="btn btn-success btn-xs" (click)="addStock(stock)"><span class="glyphicon glyphicon-plus"></span></a></td>
+            <td>{{stock.symbol}}</td>
+            <td>{{stock.name}}</td>
+            <td>{{stock.exchange}}</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="col-md-8">
+
+      Chart
+      
+
+    </div>
+
+  </div>
+
+  <!--{{x | async | json}}-->
+
+</div>
