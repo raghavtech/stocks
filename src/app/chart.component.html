@@ -1,0 +1,13 @@
+<div *ngIf="message" class="alert alert-warning" role="alert">
+{{message}}
+</div>
+
+<base-chart class="chart" *ngIf="lineChartData.length > 0"
+    [datasets]="lineChartData"
+    [labels]="lineChartLabels"
+    [legend]="true"
+    [chartType]="'line'"
+    ></base-chart>
+<div *ngIf="stocks.length===0" class="alert alert-success" role="alert">
+Please add some stocks to visualize their historical values
+</div>

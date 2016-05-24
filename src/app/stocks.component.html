@@ -1,14 +1,9 @@
 <div class="container-fluid">
-
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Collaborative stock price viewer</h1>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-md-4 well">
+      
       <h4>Currently watched stocks</h4>
+      
       <p *ngIf="stocks.length === 0">There are currently no stocks to watch</p>
 
       <div class="table-responsive">
@@ -27,12 +22,15 @@
           </tr>
         </table>
       </div>
-      <a (click)="updateChart()"> Update chart</a>
+
       <hr>
       <h4>Add stock</h4>
+      
       <div class="form-group">
         <input [ngFormControl]="searchStock" type="text" class="form-control" id="searchStock" placeholder="Search a stock">
       </div>
+      
+      
       <div class="table-responsive">
         <p class="bg-warning" *ngIf="searchStockResults.length === 0 && !queryUnderway && searchStock.value && searchStock.value.length>0">
           <span class="glyphicon glyphicon-warning-sign"></span>No stocks could be found for the query {{ searchStock.value }}.
@@ -67,20 +65,8 @@
     </div>
 
     <div class="col-md-8">
-          <p *ngIf="message" class="bg-warning">{{message}}</p>
-          <base-chart class="chart" *ngIf="lineChartData.length > 0"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [legend]="true"
-                [chartType]="'line'"
-                ></base-chart>
-          <p *ngIf="lineChartData.length === 0">Please add some stocks to visualize their historical values</p>
-
+      <stocks-chart [stocks]="stocks"></stocks-chart>
     </div>
 
   </div>
-
-  <!--{{x | async | json}}-->
-
 </div>

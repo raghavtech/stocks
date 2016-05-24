@@ -7,26 +7,17 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
-import { CHART_DIRECTIVES } from 'ng2-charts/ng2-charts';
+import { ChartComponent } from './chart.component';
 
 @Component({
   moduleId: module.id,
   selector: 'stocks-app',
   templateUrl: 'stocks.component.html',
-  directives: [CHART_DIRECTIVES],
   styleUrls: ['stocks.component.css'],
+  directives: [ChartComponent],
   providers: [StockService]
 })
 export class StocksAppComponent {
-  
-  // chart options
-  message:string;
-  public lineChartData:Array<any> = [];
-  public lineChartLabels:Array<any> = []
-  public lineChartOptions:any = {
-    // animation: false,
-    // responsive: true
-  };
   
   // search control and results from the search
   private searchStock = new Control();
@@ -37,8 +28,6 @@ export class StocksAppComponent {
   private stocks:Stock[] = [];
   
   constructor(private stockService:StockService) {
-    console.log(CHART_DIRECTIVES);
-    console.log(Observable);
     this.searchStock
       .valueChanges
       .map(e => { this.queryUnderway = true; return e })
@@ -54,11 +43,13 @@ export class StocksAppComponent {
       return;
     // remove item from the search results
     this.removeFromStockArray(stock, this.searchStockResults);
-    this.stocks.push(stock);    
+    this.stocks.push(stock);
+    this.stocks = this.stocks.slice(0); // DEBUG - this triggers the change detection!!! 
   }
   
   removeStock(stock: Stock):void {
     this.removeFromStockArray(stock, this.stocks);
+    this.stocks = this.stocks.slice(0); // DEBUG - this triggers the change detection!!! 
   }
 
   /**
@@ -68,39 +59,5 @@ export class StocksAppComponent {
     if (array.indexOf(stock) < 0)
       return;
     array.splice(array.indexOf(stock), 1);
-  }
-
-  updateChart() {
-    if (this.stocks.length === 0)
-      return;
-    console.log("Updating chart");
-    this.stockService.interactiveChart(this.stocks)
-      .subscribe(data => {
-        // console.log(data);
-        
-        // sometimes the web service does not have data on the stocks
-        if (data.Elements.length === 0) {
-          console.warn("no data available");
-          this.message = 'Unfortunately, the webservice does not have data on the stocks you selected.';
-          return;
-        }
-        
-        // if we get data, format it to the required chart.js format
-        this.message = null;
-        this.lineChartLabels = data.Dates.map(dateString => dateString.substring(0,10));
-        this.lineChartData = data.Elements.map(singleStock => this.mapSingleStockData(singleStock));
-      }, 
-      error => {
-        this.message = "An error occured retrieving the stock data: " + JSON.stringify(error);
-      });
-  }
-  
-  private mapSingleStockData(data) {
-    return {
-      data: data.DataSeries.close.values,
-      label: data.Symbol,
-      fill: false
-    }
-    
   }
 }
