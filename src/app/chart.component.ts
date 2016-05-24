@@ -29,13 +29,13 @@ export class ChartComponent implements OnChanges {
   }
   
   updateChart() {
+    // Don't query if we have no stocks.
     if (this.stocks.length === 0) {
       this.lineChartData = [];
       this.lineChartLabels = [];
       return;
     }
 
-    console.log("Updating chart");
     this.stockService.interactiveChart(this.stocks)
       .subscribe(data => {
         // console.log(data);
