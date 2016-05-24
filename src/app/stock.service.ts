@@ -43,7 +43,7 @@ export class StockService {
   /**
    * Query for data
    */
-  interactiveChart(stocks:Stock[]):Observable<Object> {
+  interactiveChart(stocks:Stock[]):Observable<any> {
     
     let elements = stocks.map(this.mapStock);
         
