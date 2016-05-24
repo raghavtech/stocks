@@ -1,0 +1,1 @@
+{"version":3,"file":"stock.js","sourceRoot":"","sources":["stock.ts"],"names":[],"mappings":"","sourcesContent":["export interface Stock {\n    symbol: string,\n    name: string,\n    exchange: string\n}"]}
