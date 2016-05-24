@@ -1,0 +1,14 @@
+<table *ngIf="stocks.length > 0" class="table table-condensed">
+    <tr>
+        <th></th>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>Exchange</th>
+    </tr>
+    <tr *ngFor="let stock of stocks">
+        <td><a class="btn btn-{{buttonType}} btn-xs" (click)="onClick(stock)"><span class="glyphicon glyphicon-{{icon}}"></span></a></td>
+        <td>{{stock.symbol}}</td>
+        <td>{{stock.name}}</td>
+        <td>{{stock.exchange}}</td>
+    </tr>
+</table>

@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3 well">
+      
+      <h4>Currently watched stocks</h4>
+      
+      <p *ngIf="stocks.length === 0">There are currently no stocks to watch</p>
+
+      <div class="table-responsive">     
+        <stocks-table [stocks]="stocks" [buttonType]="'danger'" [icon]="'remove'" (actionClicked)="removeStock($event)"></stocks-table>
+      </div>
+      
+      <div *ngIf="message" class="alert alert-info" role="alert">
+        {{message}}
+      </div>
+      
+      <h4>Add stock</h4>
+      
+      <div class="form-group">
+        <input [ngFormControl]="searchStock" type="text" class="form-control" id="searchStock" placeholder="Search a stock">
+      </div>
+      <div class="table-responsive">
+        <p class="bg-warning" *ngIf="searchStockResults.length === 0 && !queryUnderway && searchStock.value && searchStock.value.length>0">
+          <span class="glyphicon glyphicon-warning-sign"></span>No stocks could be found for the query {{ searchStock.value }}.
+        </p>
+        <p *ngIf="queryUnderway">Searching results...<p>
+        <stocks-table [stocks]="searchStockResults" [buttonType]="'success'" [icon]="'plus'" (actionClicked)="addStock($event)"></stocks-table>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Features used in this project</h4>
+          <dl>
+            <dt>rxjs</dt><dd>Binding of input value to query</dd>
+            <dt>JSONP</dt><dd>Retrieving stocks and historical quotes from a web service</dd>
+            <dt>ng2-charts</dt><dd>Visualizing the stock data (also shows how to integrate 3rd party libs into CLI build)</dd>
+            <dt>Firebase/angularFire2</dt><dd>Reactive data storage</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <stocks-chart [stocks]="stocks"></stocks-chart>
+    </div>
+  </div>
+</div>
