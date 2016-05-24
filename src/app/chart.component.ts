@@ -12,7 +12,7 @@ import { CHART_DIRECTIVES } from 'ng2-charts/ng2-charts';
   directives: [CHART_DIRECTIVES],
   styleUrls: ['chart.component.css']
 })
-export class ChartComponent implements OnChanges, OnInit {
+export class ChartComponent implements OnChanges {
   
   @Input() stocks:Stock[];
 
@@ -22,18 +22,9 @@ export class ChartComponent implements OnChanges, OnInit {
   public lineChartLabels:Array<any> = [];
   
   
-  constructor(private stockService:StockService) {
-
-  }
-  
-  ngOnInit() {
-      console.warn("on init");
-      console.info(this.stocks);
-  }
+  constructor(private stockService:StockService) { }
   
   ngOnChanges() {
-      console.warn("Change! ");
-      console.info(this.stocks);
       this.updateChart();
   }
   
@@ -66,6 +57,10 @@ export class ChartComponent implements OnChanges, OnInit {
       });
   }
   
+  /**
+   * Maps data of a single stock from the format retrieved by the web service to the
+   * format required by chart.js
+   */
   private mapSingleStockData(data) {
     return {
       data: data.DataSeries.close.values,

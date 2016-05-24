@@ -3,13 +3,19 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  'ng2-charts': 'vendor/ng2-charts'
+  'ng2-charts': 'vendor/ng2-charts',
+  'firebase': 'vendor/firebase/lib/firebase-web.js',
+  'angularfire2': 'vendor/angularfire2'
 };
 
 /** User packages configuration. */
 const packages: any = {
   'ng2-charts': {
     main: 'bundles/ng2-charts.min.js'
+  },
+  'angularfire2': {
+    defaultExtension: 'js',
+    main: 'angularfire2.js'
   }
 };
 

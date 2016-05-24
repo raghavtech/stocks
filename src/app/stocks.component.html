@@ -18,11 +18,15 @@
             <td><a class="btn btn-danger btn-xs" (click)="removeStock(stock)"><span class="glyphicon glyphicon-remove"></span></a></td>
             <td>{{stock.symbol}}</td>
             <td>{{stock.name}}</td>
-            <td>{{stock.exchange}}</td>
+           <td>{{stock.exchange}}</td>
           </tr>
         </table>
       </div>
-
+      
+      <div *ngIf="message" class="alert alert-info" role="alert">
+        {{message}}
+      </div>
+      
       <hr>
       <h4>Add stock</h4>
       
@@ -59,6 +63,7 @@
             <dt>rxjs</dt><dd>Binding of input value to query</dd>
             <dt>JSONP</dt><dd>Retrieving stocks and historical quotes from a web service</dd>
             <dt>ng2-charts</dt><dd>Visualizing the stock data (also shows how to integrate 3rd party libs into CLI build)</dd>
+            <dt>Firebase/angularFire2</dt><dd>Reactive data storage</dd>
           </dl>
         </div>
       </div>

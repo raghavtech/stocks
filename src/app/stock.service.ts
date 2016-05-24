@@ -3,6 +3,7 @@ import { Jsonp, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 import { Stock } from './stock';
 
@@ -14,14 +15,43 @@ const INTERACTIVE_CHART_ENDPOINT = STOCK_ENDPOINT + 'InteractiveChart' + METHOD_
 @Injectable()
 export class StockService {
 
-  constructor(private jsonp:Jsonp) { }
+  public stocks: FirebaseListObservable<Stock[]>;
+  private indexes:string[] = [];
+  
+  constructor(
+    private jsonp:Jsonp,
+    private af:AngularFire
+  ) { 
+    this.stocks = af.database.list('/stocks');
+    this.stocks.subscribe(stocks => this.indexes = stocks.map(stock => this.getKey(stock)));
+  }
+  
+  /**
+   * Adds the given stock to the watch list. 
+   * Returns true if it was added and false if it already existed in the watch list.
+   */
+  addStock(stock:Stock) {
+    if (this.indexes.indexOf(this.getKey(stock)) >= 0) {
+      return false;
+    }  
+        
+    this.stocks.push(stock);
+    return true;
+  }
+  
+  removeStock(stock:Stock) {
+    this.stocks.remove(stock);
+  }
+  
+  // creates a unique id for each stock to avoid duplicates.
+  private getKey(stock:Stock):string {
+    return stock.exchange + ':' + stock.symbol;
+  }
   
   /**
    * Lookup for a stock based on parts of its name/symbol
    */
   findStocks(searchQuery: string): Observable<Stock[]> {
-    console.log("Searching for stocks with query '" + searchQuery + "'");
-    
     if (searchQuery.length === 0) {
       return Observable.of([]);
     }

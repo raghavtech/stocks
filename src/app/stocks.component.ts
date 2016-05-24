@@ -13,11 +13,13 @@ import { ChartComponent } from './chart.component';
   moduleId: module.id,
   selector: 'stocks-app',
   templateUrl: 'stocks.component.html',
-  styleUrls: ['stocks.component.css'],
   directives: [ChartComponent],
   providers: [StockService]
 })
 export class StocksAppComponent {
+  
+  // info message
+  private message:string;
   
   // search control and results from the search
   private searchStock = new Control();
@@ -28,6 +30,7 @@ export class StocksAppComponent {
   private stocks:Stock[] = [];
   
   constructor(private stockService:StockService) {
+    // bind search control to results
     this.searchStock
       .valueChanges
       .map(e => { this.queryUnderway = true; return e })
@@ -35,29 +38,28 @@ export class StocksAppComponent {
       .distinctUntilChanged()
       .switchMap(query => this.stockService.findStocks(query))
       .subscribe(r => { this.queryUnderway = false; this.searchStockResults = r });
+      
+      // bind stocks to service
+      this.stockService.stocks.subscribe(stocks => this.stocks = stocks);
   }
   
   addStock(stock:Stock):void {
-    // don't add if it's already in the list
-    if (this.stocks.indexOf(stock) >= 0)
-      return;
-    // remove item from the search results
-    this.removeFromStockArray(stock, this.searchStockResults);
-    this.stocks.push(stock);
-    this.stocks = this.stocks.slice(0); // DEBUG - this triggers the change detection!!! 
+    let added = this.stockService.addStock(stock);
+    if (!added) {
+      this.setMessage('You are already following the stock ' + stock.name);
+    } else {
+      this.setMessage('Stock ' + stock.name + ' added to the watch list');
+    }
   }
   
   removeStock(stock: Stock):void {
-    this.removeFromStockArray(stock, this.stocks);
-    this.stocks = this.stocks.slice(0); // DEBUG - this triggers the change detection!!! 
+    this.stockService.removeStock(stock); 
+    this.setMessage('Removed stock ' + stock.name + ' from the watch list');
   }
-
-  /**
-   * Removes a stock from a given stock array
-   */
-  removeFromStockArray(stock: Stock, array:Stock[]):void {
-    if (array.indexOf(stock) < 0)
-      return;
-    array.splice(array.indexOf(stock), 1);
+  
+  // sets info messages and removes it after 5 seconds.
+  private setMessage(message:string) {
+    this.message = message;
+    setTimeout(() => this.message = null, 5000);
   }
 }
