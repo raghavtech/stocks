@@ -15,7 +15,7 @@ module.exports = function(defaults) {
       '@angular/**/*.+(js|js.map)',
       // ng2-charts
       'chart.js/dist/Chart.bundle.min.js',
-      'ng2-charts/**/*.js',
+      'ng2-charts/**/*.+(js|js.map)',
       // firebase
       'angularfire2/**/*.+(js|js.map)',
       'firebase/lib/*.+(js|js.map)'      
