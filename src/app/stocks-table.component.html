@@ -6,7 +6,7 @@
     <th>Exchange</th>
     </tr>
     <tr *ngFor="let stock of stocks">
-    <td><a class="btn btn-danger btn-xs" (click)="onClick(stock)"><span class="glyphicon glyphicon-{{icon}}"></span></a></td>
+    <td><a class="btn btn-{{buttonType}} btn-xs" (click)="onClick(stock)"><span class="glyphicon glyphicon-{{icon}}"></span></a></td>
     <td>{{stock.symbol}}</td>
     <td>{{stock.name}}</td>
     <td>{{stock.exchange}}</td>

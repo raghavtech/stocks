@@ -7,16 +7,13 @@
       <p *ngIf="stocks.length === 0">There are currently no stocks to watch</p>
 
       <div class="table-responsive">     
-        <stocks-table [stocks]="stocks" [icon]="'remove'" (actionClicked)="removeStock($event)"></stocks-table>
+        <stocks-table [stocks]="stocks" [buttonType]="'danger'" [icon]="'remove'" (actionClicked)="removeStock($event)"></stocks-table>
       </div>
       
       <div *ngIf="message" class="alert alert-info" role="alert">
         {{message}}
       </div>
       
-      <hr>
-
-
       <h4>Add stock</h4>
       
       <div class="form-group">
@@ -27,7 +24,7 @@
           <span class="glyphicon glyphicon-warning-sign"></span>No stocks could be found for the query {{ searchStock.value }}.
         </p>
         <p *ngIf="queryUnderway">Searching results...<p>
-        <stocks-table [stocks]="searchStockResults" [icon]="'plus'" (actionClicked)="addStock($event)"></stocks-table>
+        <stocks-table [stocks]="searchStockResults" [buttonType]="'success'" [icon]="'plus'" (actionClicked)="addStock($event)"></stocks-table>
       </div>
     
       <div class="row">

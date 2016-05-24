@@ -22,6 +22,9 @@ export class StocksTableAppComponent {
   // stocks to visualize
   @Input() stocks:Stock[];
   
+  // bootstrap button color used for the action, e.g., 'danger' or 'success'
+  @Input() buttonType:string;
+  
   // glyphicon to use - e.g. 'remove' will generate a 'glyphicon-remove'
   @Input() icon:string;
   

@@ -51,6 +51,7 @@ export class StocksAppComponent {
     } else {
       this.setMessage('Stock ' + stock.name + ' added to the watch list');
     }
+    this.searchStock.updateValue("");
   }
   
   removeStock(stock: Stock):void {
