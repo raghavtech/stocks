@@ -8,12 +8,13 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 
 import { ChartComponent } from './chart.component';
+import { StocksTableAppComponent } from './stocks-table.component';
 
 @Component({
   moduleId: module.id,
   selector: 'stocks-app',
   templateUrl: 'stocks.component.html',
-  directives: [ChartComponent],
+  directives: [ChartComponent, StocksTableAppComponent],
   providers: [StockService]
 })
 export class StocksAppComponent {
