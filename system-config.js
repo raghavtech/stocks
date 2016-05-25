@@ -3,12 +3,18 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 var map = {
+    'chartjs': 'vendor/chart.js/',
     'ng2-charts': 'vendor/ng2-charts',
     'firebase': 'vendor/firebase/lib/firebase-web.js',
     'angularfire2': 'vendor/angularfire2'
 };
 /** User packages configuration. */
 var packages = {
+    'chartjs': {
+        format: 'global',
+        defaultExtension: 'js',
+        main: 'dist/Chart.bundle.js'
+    },
     'ng2-charts': {
         main: 'bundles/ng2-charts.min.js'
     },
