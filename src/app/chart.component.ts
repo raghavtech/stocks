@@ -4,6 +4,8 @@ import { Stock} from './stock';
 import { Observable } from 'rxjs/Observable';
 
 import { CHART_DIRECTIVES } from 'ng2-charts/ng2-charts';
+import 'chartjs';
+declare let Chart;
 
 @Component({
   moduleId: module.id,

@@ -3,6 +3,7 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'chartjs': 'vendor/chart.js/',
   'ng2-charts': 'vendor/ng2-charts',
   'firebase': 'vendor/firebase/lib/firebase-web.js',
   'angularfire2': 'vendor/angularfire2'
@@ -10,6 +11,11 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
+  'chartjs': { 
+    format: 'global',
+    defaultExtension: 'js', 
+    main: 'dist/Chart.bundle.js'
+  },
   'ng2-charts': {
     main: 'bundles/ng2-charts.min.js'
   },
